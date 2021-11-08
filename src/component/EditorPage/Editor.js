@@ -29,14 +29,16 @@ export default function Editor({ $target, initialState, onEditing }) {
 
   this.render();
 
-  $editor.querySelector("[name=title]").addEventListener("keyup", (e) => {
-    const nextState = { ...this.state, title: e.target.value };
+  $editor.addEventListener("keyup", (e) => {
+    const { target } = e;
+    const name = target.getAttribute("name");
 
-    onEditing(nextState);
-    this.setState(nextState);
-  });
-  $editor.querySelector("[name=content]").addEventListener("keyup", (e) => {
-    const nextState = { ...this.state, content: e.target.value };
+    if (this.state[name] === undefined) return;
+
+    const nextState = {
+      ...this.state,
+      [name]: target.value,
+    };
 
     onEditing(nextState);
     this.setState(nextState);
