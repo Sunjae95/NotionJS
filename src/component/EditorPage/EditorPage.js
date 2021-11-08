@@ -27,6 +27,12 @@ export default function EditorPage({ $target }) {
         removeItem(this.state.id);
       }, 2000);
     },
+    handleChangeTitle: (title) => {
+      const [_, id] = location.pathname.split("/");
+      const $title = document.querySelector(`span[data-id="${id}"]`);
+
+      $title.innerHTML = title;
+    },
   });
 
   this.setState = (nextState) => {

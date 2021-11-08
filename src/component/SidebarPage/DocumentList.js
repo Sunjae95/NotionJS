@@ -6,7 +6,7 @@ const createDocument = (data) => {
 
   return /*html*/ `
     <ul data-id=${id}>
-      <div data-id=${id}>${title}<button class="add-btn">+</button></div>
+      <div><span data-id=${id}>${title}</span><button class="add-btn">+</button></div>
       <li>${
         documents.length === 0
           ? ""
