@@ -15,12 +15,11 @@ const createDocument = (data) => {
     </ul>`;
 };
 
-export default function DocumentList({ $target, initialState, onAdd }) {
-  const $documentContainer = createElement("div", "document-container");
+export default function DocumentList({ $target, onAdd }) {
+  const $listContainer = createElement("div", "document-container");
+  $target.appendChild($listContainer);
 
-  $target.appendChild($documentContainer);
-
-  $documentContainer.addEventListener("click", (e) => {
+  $listContainer.addEventListener("click", (e) => {
     if (e.target.className === "document-container") return;
 
     const $document = e.target.closest("ul");
@@ -37,7 +36,7 @@ export default function DocumentList({ $target, initialState, onAdd }) {
     }
   });
 
-  this.state = initialState;
+  this.state = null;
 
   this.setState = (nextState) => {
     this.state = nextState;
@@ -46,7 +45,7 @@ export default function DocumentList({ $target, initialState, onAdd }) {
 
   //조건부 렌더링 this.state가 없으면 아무것도 렌더하지 않음
   this.render = () => {
-    $documentContainer.innerHTML = `${
+    $listContainer.innerHTML = `${
       this.state
         ? this.state.map((document) => createDocument(document)).join("")
         : ""

@@ -10,14 +10,11 @@ export default function Sidebar({ $target, onCreatedDocument }) {
   }
 
   const $sidebar = createElement("div", "notion-sidebar");
-
   $target.appendChild($sidebar);
 
   new Header({ $target: $sidebar, title: "Notion Clone" });
-
   const documentList = new DocumentList({
     $target: $sidebar,
-    initialState: null,
     onAdd: async (id) => {
       const data = { title: "제목을 입력해주세요", parent: id };
       const createdInfo =

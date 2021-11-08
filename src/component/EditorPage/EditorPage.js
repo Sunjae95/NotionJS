@@ -3,13 +3,10 @@ import { getItem, removeItem, setItem } from "../../utils/storage.js";
 import { createElement } from "../../utils/util.js";
 import Editor from "./Editor.js";
 
-export default function EditorPage({
-  $target,
-  initialState = { id: "", title: "", content: "" },
-}) {
+export default function EditorPage({ $target }) {
   const $page = createElement("div", "notion-editor");
 
-  this.state = initialState;
+  this.state = { id: "", title: "", content: "" };
 
   let timer = null;
 
