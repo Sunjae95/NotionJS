@@ -10,7 +10,7 @@ export default function Header({ $target, title }) {
   $target.appendChild($header);
 
   this.render = () => {
-    $header.innerHTML = `${title}`;
+    $header.innerHTML = title;
   };
 
   this.render();

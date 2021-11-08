@@ -50,7 +50,7 @@ export default function DocumentList({ $target, initialState, onAdd }) {
       this.state
         ? this.state.map((document) => createDocument(document)).join("")
         : ""
-    }<ul data-id="new"><div><button class="add-btn">+</button> Add a Page</div></ul>`;
+    }<ul data-id="new"><button class="add-btn">+</button> Add a Page</ul>`;
   };
 
   this.render();
