@@ -2,6 +2,7 @@ import { getDocument, modifyDocument } from "../../utils/api.js";
 import { getItem, removeItem, setItem } from "../../utils/storage.js";
 import { createElement } from "../../utils/util.js";
 import Editor from "./Editor.js";
+import Loading from "./Loading.js";
 
 export default function EditorPage({ $target }) {
   const $page = createElement("div", "notion-editor");
@@ -9,11 +10,12 @@ export default function EditorPage({ $target }) {
   this.state = { id: "", title: "", content: "" };
 
   let timer = null;
-
+  const loading = new Loading({ $target: $page });
   const editor = new Editor({
     $target: $page,
     initialState: { title: this.state.title, content: this.state.content },
     onEditing: async (post) => {
+      loading.setState(true);
       setItem(this.state.id, post);
 
       if (timer !== null) {
@@ -24,6 +26,7 @@ export default function EditorPage({ $target }) {
         const data = getItem(this.state.id, post);
 
         await modifyDocument(this.state.id, data);
+        loading.setState(false);
         removeItem(this.state.id);
       }, 2000);
     },
