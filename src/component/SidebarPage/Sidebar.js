@@ -23,7 +23,7 @@ export default function Sidebar({ $target, onCreatedDocument }) {
       const data = { title: "제목을 입력해주세요", parent: id };
       const createdInfo =
         id === "new" ? await createDocument() : await createDocument(data);
-
+      console.log(createdInfo);
       onCreatedDocument(createdInfo);
 
       const nextState = await getDocument();

@@ -7,7 +7,7 @@ const createDocument = (data) => {
   return /*html*/ `
     <ul class="list-off" data-id=${id}>
       <div class="document">
-      <button class="toggle-btn">▸<button/>
+      <button class="toggle-btn">▸</button>
         <span data-id=${id}>${title}</span>
         <button class="add-btn">+</button>
         <button class="delete-btn">-</button>
@@ -42,11 +42,11 @@ export default function DocumentList({ $target, onAdd, onDelete }) {
     } else if (e.target === $toggleButton) {
       console.log($toggleButton.classList.length);
       if ($document.className === "list-off") {
-        $toggleButton.innerHTML = "▾";
         $document.className = "list-on";
+        $toggleButton.innerHTML = "▾";
       } else {
-        $toggleButton.innerHTML = "▸";
         $document.className = "list-off";
+        $toggleButton.innerHTML = "▸";
       }
     } else {
       const { id } = $document.dataset;

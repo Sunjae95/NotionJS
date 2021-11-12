@@ -31,8 +31,9 @@ export default function EditorPage({ $target }) {
       }, 2000);
     },
     handleChangeTitle: (title) => {
-      const [_, id] = location.pathname.split("/");
-      const $title = document.querySelector(`span[data-id="${id}"]`);
+      const { pathname } = window.location;
+      const [, , postId] = pathname.split("/");
+      const $title = document.querySelector(`span[data-id="${postId}"]`);
 
       $title.innerHTML = title;
     },

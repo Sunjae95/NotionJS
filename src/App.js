@@ -6,7 +6,7 @@ import { initRouter, push } from "./utils/router.js";
 export default function App({ $target }) {
   new Sidebar({
     $target,
-    onCeatedDocument: async (createdInfo) => {
+    onCreatedDocument: async (createdInfo) => {
       const { id } = createdInfo;
       const nextState = await getDocument(id);
 
@@ -47,6 +47,7 @@ export default function App({ $target }) {
   initRouter(() => this.route());
 
   let isInit = null;
+
   if (!isInit) {
     this.route();
     isInit = true;
