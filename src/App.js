@@ -1,6 +1,6 @@
 import Sidebar from "./component/SidebarPage/Sidebar.js";
 import EditorPage from "./component/EditorPage/EditorPage.js";
-import { getDocument } from "./utils/api.js";
+import { createDocument, getDocument } from "./utils/api.js";
 import { initRouter, push } from "./utils/router.js";
 
 export default function App({ $target }) {
@@ -44,7 +44,14 @@ export default function App({ $target }) {
       if (pathname === "/") {
         const nextState = await getDocument();
 
-        if (nextState.length === 0) return;
+        if (nextState.length === 0) {
+          //추가하는 로직
+          const post = await createDocument(null);
+          const { id } = post;
+          push(`posts/${id}`);
+          editPage.setState(post);
+          return;
+        }
 
         push(`posts/${nextState[0].id}`);
         editPage.setState(nextState);
@@ -55,7 +62,9 @@ export default function App({ $target }) {
 
         editPage.setState(nextState);
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   initRouter(() => this.route());
