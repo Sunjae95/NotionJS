@@ -21,13 +21,17 @@ export default function Sidebar({ $target, onCreatedDocument }) {
     $target: $sidebar,
     onAdd: async (id) => {
       const data = { title: "제목을 입력해주세요", parent: id };
-      const createdInfo =
-        id === "new" ? await createDocument() : await createDocument(data);
-      console.log(createdInfo);
-      onCreatedDocument(createdInfo);
 
-      const nextState = await getDocument();
-      documentList.setState(nextState);
+      try {
+        const isNew = id === "new" ? null : data;
+        const createdInfo = await createDocument(isNew);
+        onCreatedDocument(createdInfo);
+
+        const nextState = await getDocument();
+        documentList.setState(nextState);
+      } catch (e) {
+        console.log(e);
+      }
     },
     onDelete: async (id) => {
       try {

@@ -40,7 +40,6 @@ export default function DocumentList({ $target, onAdd, onDelete }) {
       const { id } = $document.dataset;
       onDelete(id);
     } else if (e.target === $toggleButton) {
-      console.log($toggleButton.classList.length);
       if ($document.className === "list-off") {
         $document.className = "list-on";
         $toggleButton.innerHTML = "▾";
@@ -51,6 +50,7 @@ export default function DocumentList({ $target, onAdd, onDelete }) {
     } else {
       const { id } = $document.dataset;
       const { pathname } = window.location;
+
       if (pathname.indexOf("/posts/") === 0) {
         push(`${id}`);
       } else {

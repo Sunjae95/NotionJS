@@ -8,9 +8,17 @@ export default function App({ $target }) {
     $target,
     onCreatedDocument: async (createdInfo) => {
       const { id } = createdInfo;
-      const nextState = await getDocument(id);
 
-      editPage.setState(nextState);
+      try {
+        const nextState = await getDocument(id);
+        const { pathname } = window.location;
+        const isInitUrl = pathname === "/" ? `posts/${id}` : id;
+
+        push(isInitUrl);
+        editPage.setState(nextState);
+      } catch (e) {
+        console.log(e);
+      }
     },
   });
 
@@ -19,29 +27,35 @@ export default function App({ $target }) {
   this.state = { id: "", title: "", content: "" };
 
   this.setState = async (id) => {
-    const nextState = await getDocument(id);
-    this.state = nextState;
+    try {
+      const nextState = await getDocument(id);
+      this.state = nextState;
 
-    editPage.setState(this.state);
+      editPage.setState(this.state);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   this.route = async () => {
-    console.log("router");
     const { pathname } = window.location;
 
-    if (pathname === "/") {
-      const nextState = await getDocument();
+    try {
+      if (pathname === "/") {
+        const nextState = await getDocument();
 
-      if (nextState.length === 0) return;
+        if (nextState.length === 0) return;
 
-      push(`posts/${nextState[0].id}`);
-      editPage.setState(nextState);
-    } else if (pathname.indexOf("/posts/") === 0) {
-      const [, , postId] = pathname.split("/");
-      const nextState = await getDocument(postId);
+        push(`posts/${nextState[0].id}`);
+        editPage.setState(nextState);
+        console.log(e);
+      } else if (pathname.indexOf("/posts/") === 0) {
+        const [, , postId] = pathname.split("/");
+        const nextState = await getDocument(postId);
 
-      editPage.setState(nextState);
-    }
+        editPage.setState(nextState);
+      }
+    } catch (e) {}
   };
 
   initRouter(() => this.route());
