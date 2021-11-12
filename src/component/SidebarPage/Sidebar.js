@@ -19,6 +19,15 @@ export default function Sidebar({ $target, onCreatedDocument }) {
   new Header({ $target: $sidebar, title: "Notion Clone" });
   const documentList = new DocumentList({
     $target: $sidebar,
+    onChange: async (id) => {
+      const { pathname } = window.location;
+
+      if (pathname.indexOf("/posts/") === 0) {
+        push(`${id}`);
+      } else {
+        push(`posts/${id}`);
+      }
+    },
     onAdd: async (id) => {
       const data = { title: "제목을 입력해주세요", parent: id };
 
