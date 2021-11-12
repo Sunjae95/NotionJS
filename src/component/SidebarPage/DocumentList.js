@@ -14,13 +14,13 @@ const createDocument = (data) => {
       </div>
       <li>${
         documents.length === 0
-          ? ""
+          ? `<ul data-id="${id}"><button class="add-btn">+</button> Add a Page</ul>`
           : documents.map((document) => createDocument(document)).join("")
       }</li>
     </ul>`;
 };
 
-export default function DocumentList({ $target, onAdd, onDelete }) {
+export default function DocumentList({ $target, onAdd, onDelete, onChange }) {
   const $listContainer = createElement("div", "document-container");
   $target.appendChild($listContainer);
 
@@ -31,30 +31,29 @@ export default function DocumentList({ $target, onAdd, onDelete }) {
     const $addButton = $document.querySelector(".add-btn");
     const $deleteButton = $document.querySelector(".delete-btn");
     const $toggleButton = $document.querySelector(".toggle-btn");
+    const { id } = $document.dataset;
 
-    if (e.target === $addButton) {
-      const { id } = $document.dataset;
-
-      onAdd(id);
-    } else if (e.target === $deleteButton) {
-      const { id } = $document.dataset;
-      onDelete(id);
-    } else if (e.target === $toggleButton) {
-      if ($document.className === "list-off") {
-        $document.className = "list-on";
-        $toggleButton.innerHTML = "▾";
-      } else {
-        $document.className = "list-off";
-        $toggleButton.innerHTML = "▸";
+    switch (e.target) {
+      case $addButton: {
+        onAdd(id);
+        break;
       }
-    } else {
-      const { id } = $document.dataset;
-      const { pathname } = window.location;
-
-      if (pathname.indexOf("/posts/") === 0) {
-        push(`${id}`);
-      } else {
-        push(`posts/${id}`);
+      case $deleteButton: {
+        onDelete(id);
+        break;
+      }
+      case $toggleButton: {
+        if ($document.className === "list-off") {
+          $document.className = "list-on";
+          $toggleButton.innerHTML = "▾";
+        } else {
+          $document.className = "list-off";
+          $toggleButton.innerHTML = "▸";
+        }
+        break;
+      }
+      default: {
+        onChange(id);
       }
     }
   });
