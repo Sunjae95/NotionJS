@@ -31,8 +31,12 @@ export default function DocumentList({ $target, onAdd }) {
       onAdd(id);
     } else {
       const { id } = $document.dataset;
-
-      push(id);
+      const { pathname } = window.location;
+      if (pathname.indexOf("/posts/") === 0) {
+        push(`${id}`);
+      } else {
+        push(`posts/${id}`);
+      }
     }
   });
 

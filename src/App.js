@@ -1,7 +1,7 @@
 import Sidebar from "./component/SidebarPage/Sidebar.js";
 import EditorPage from "./component/EditorPage/EditorPage.js";
 import { getDocument } from "./utils/api.js";
-import { initRouter } from "./utils/router.js";
+import { initRouter, push } from "./utils/router.js";
 
 export default function App({ $target }) {
   new Sidebar({
@@ -25,5 +25,30 @@ export default function App({ $target }) {
     editPage.setState(this.state);
   };
 
-  initRouter((id) => this.setState(id));
+  this.route = async () => {
+    console.log("router");
+    const { pathname } = window.location;
+
+    if (pathname === "/") {
+      const nextState = await getDocument();
+
+      if (nextState.length === 0) return;
+
+      push(`posts/${nextState[0].id}`);
+      editPage.setState(nextState);
+    } else if (pathname.indexOf("/posts/") === 0) {
+      const [, , postId] = pathname.split("/");
+      const nextState = await getDocument(postId);
+
+      editPage.setState(nextState);
+    }
+  };
+
+  initRouter(() => this.route());
+
+  let isInit = null;
+  if (!isInit) {
+    this.route();
+    isInit = true;
+  }
 }

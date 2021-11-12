@@ -28,11 +28,12 @@ export default function Sidebar({ $target, onCreatedDocument }) {
   });
 
   this.render = async () => {
+    console.log("sidebar");
     const rootDocument = await getDocument();
 
-    if (rootDocument.length === 0) return;
+    // if (rootDocument.length === 0) return;
 
-    push(rootDocument[0].id);
+    // push(`posts/${rootDocument[0].id}`);
 
     documentList.setState(rootDocument);
   };
