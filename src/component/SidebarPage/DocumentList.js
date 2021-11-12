@@ -5,8 +5,9 @@ const createDocument = (data) => {
   const { id, title, documents } = data;
 
   return /*html*/ `
-    <ul data-id=${id}>
+    <ul class="list-off" data-id=${id}>
       <div class="document">
+      <button class="toggle-btn">▸<button/>
         <span data-id=${id}>${title}</span>
         <button class="add-btn">+</button>
         <button class="delete-btn">-</button>
@@ -29,6 +30,7 @@ export default function DocumentList({ $target, onAdd, onDelete }) {
     const $document = e.target.closest("ul");
     const $addButton = $document.querySelector(".add-btn");
     const $deleteButton = $document.querySelector(".delete-btn");
+    const $toggleButton = $document.querySelector(".toggle-btn");
 
     if (e.target === $addButton) {
       const { id } = $document.dataset;
@@ -37,6 +39,15 @@ export default function DocumentList({ $target, onAdd, onDelete }) {
     } else if (e.target === $deleteButton) {
       const { id } = $document.dataset;
       onDelete(id);
+    } else if (e.target === $toggleButton) {
+      console.log($toggleButton.classList.length);
+      if ($document.className === "list-off") {
+        $toggleButton.innerHTML = "▾";
+        $document.className = "list-on";
+      } else {
+        $toggleButton.innerHTML = "▸";
+        $document.className = "list-off";
+      }
     } else {
       const { id } = $document.dataset;
       const { pathname } = window.location;
