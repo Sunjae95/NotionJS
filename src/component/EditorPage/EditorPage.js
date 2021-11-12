@@ -1,4 +1,4 @@
-import { getDocument, modifyDocument } from "../../utils/api.js";
+import { modifyDocument } from "../../utils/api.js";
 import { getItem, removeItem, setItem } from "../../utils/storage.js";
 import { createElement } from "../../utils/util.js";
 import Editor from "./Editor.js";

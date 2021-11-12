@@ -55,14 +55,12 @@ export default function Sidebar({ $target, onCreatedDocument }) {
   });
 
   this.render = async () => {
-    console.log("sidebar");
-    const rootDocument = await getDocument();
-
-    // if (rootDocument.length === 0) return;
-
-    // push(`posts/${rootDocument[0].id}`);
-
-    documentList.setState(rootDocument);
+    try {
+      const rootDocument = await getDocument();
+      documentList.setState(rootDocument);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   this.render();
