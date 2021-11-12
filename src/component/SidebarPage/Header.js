@@ -7,6 +7,9 @@ export default function Header({ $target, title }) {
   }
 
   const $header = createElement("div", "sidebar-header");
+  $header.addEventListener("click", (e) => {
+    push("/");
+  });
 
   $target.appendChild($header);
 
@@ -15,8 +18,4 @@ export default function Header({ $target, title }) {
   };
 
   this.render();
-
-  $header.addEventListener("click", (e) => {
-    push("/");
-  });
 }

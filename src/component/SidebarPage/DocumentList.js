@@ -1,10 +1,9 @@
-import { push } from "../../utils/router.js";
 import { createElement } from "../../utils/util.js";
 
 const createDocument = (data) => {
   const { id, title, documents } = data;
 
-  return /*html*/ `
+  return `
     <ul class="list-off" data-id=${id}>
       <div class="document">
       <button class="toggle-btn">▸</button>
@@ -65,7 +64,6 @@ export default function DocumentList({ $target, onAdd, onDelete, onChange }) {
     this.render();
   };
 
-  //조건부 렌더링 this.state가 없으면 아무것도 렌더하지 않음
   this.render = () => {
     $listContainer.innerHTML = `${
       this.state

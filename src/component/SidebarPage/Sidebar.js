@@ -19,7 +19,7 @@ export default function Sidebar({ $target, onCreatedDocument }) {
   new Header({ $target: $sidebar, title: "Notion Clone" });
   const documentList = new DocumentList({
     $target: $sidebar,
-    onChange: async (id) => {
+    onChange: (id) => {
       const { pathname } = window.location;
 
       if (pathname.indexOf("/posts/") === 0) {

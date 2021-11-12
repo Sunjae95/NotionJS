@@ -6,12 +6,10 @@ import { initRouter, push } from "./utils/router.js";
 export default function App({ $target }) {
   new Sidebar({
     $target,
-    onCreatedDocument: async (createdInfo) => {
-      const { id } = createdInfo;
-
+    onCreatedDocument: async ({ id }) => {
       try {
-        const nextState = await getDocument(id);
         const { pathname } = window.location;
+        const nextState = await getDocument(id);
         const isInitUrl = pathname === "/" ? `posts/${id}` : id;
 
         push(isInitUrl);
@@ -45,9 +43,9 @@ export default function App({ $target }) {
         const nextState = await getDocument();
 
         if (nextState.length === 0) {
-          //추가하는 로직
           const post = await createDocument(null);
           const { id } = post;
+
           push(`posts/${id}`);
           editPage.setState(post);
           return;
@@ -55,7 +53,6 @@ export default function App({ $target }) {
 
         push(`posts/${nextState[0].id}`);
         editPage.setState(nextState);
-        console.log(e);
       } else if (pathname.indexOf("/posts/") === 0) {
         const [, , postId] = pathname.split("/");
         const nextState = await getDocument(postId);

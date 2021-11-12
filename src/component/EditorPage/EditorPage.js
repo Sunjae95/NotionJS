@@ -14,7 +14,7 @@ export default function EditorPage({ $target }) {
   const editor = new Editor({
     $target: $page,
     initialState: { title: this.state.title, content: this.state.content },
-    onEditing: async (post) => {
+    onEditing: (post) => {
       loading.setState(true);
       setItem(this.state.id, post);
 

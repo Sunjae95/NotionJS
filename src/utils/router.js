@@ -2,7 +2,7 @@ const ROUTE_CHANGE_EVENT_NAME = "route-change";
 export const initRouter = (onRoute) => {
   window.addEventListener(ROUTE_CHANGE_EVENT_NAME, (e) => {
     const { nextUrl } = e.detail;
-    console.log(nextUrl);
+
     if (nextUrl === "/") {
       history.replaceState(null, null, nextUrl);
       onRoute(nextUrl);
