@@ -6,7 +6,11 @@ const createDocument = (data) => {
 
   return /*html*/ `
     <ul data-id=${id}>
-      <div><span data-id=${id}>${title}</span><button class="add-btn">+</button></div>
+      <div class="document">
+        <span data-id=${id}>${title}</span>
+        <button class="add-btn">+</button>
+        <button class="delete-btn">-</button>
+      </div>
       <li>${
         documents.length === 0
           ? ""
@@ -15,7 +19,7 @@ const createDocument = (data) => {
     </ul>`;
 };
 
-export default function DocumentList({ $target, onAdd }) {
+export default function DocumentList({ $target, onAdd, onDelete }) {
   const $listContainer = createElement("div", "document-container");
   $target.appendChild($listContainer);
 
@@ -24,11 +28,15 @@ export default function DocumentList({ $target, onAdd }) {
 
     const $document = e.target.closest("ul");
     const $addButton = $document.querySelector(".add-btn");
+    const $deleteButton = $document.querySelector(".delete-btn");
 
     if (e.target === $addButton) {
       const { id } = $document.dataset;
 
       onAdd(id);
+    } else if (e.target === $deleteButton) {
+      const { id } = $document.dataset;
+      onDelete(id);
     } else {
       const { id } = $document.dataset;
       const { pathname } = window.location;

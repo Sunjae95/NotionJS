@@ -1,4 +1,8 @@
-import { createDocument, getDocument } from "../../utils/api.js";
+import {
+  createDocument,
+  deleteDocument,
+  getDocument,
+} from "../../utils/api.js";
 import Header from "./Header.js";
 import DocumentList from "./DocumentList.js";
 import { createElement } from "../../utils/util.js";
@@ -24,6 +28,16 @@ export default function Sidebar({ $target, onCreatedDocument }) {
 
       const nextState = await getDocument();
       documentList.setState(nextState);
+    },
+    onDelete: async (id) => {
+      try {
+        await deleteDocument(id);
+
+        const nextState = await getDocument();
+        documentList.setState(nextState);
+      } catch (e) {
+        console.log(e);
+      }
     },
   });
 
