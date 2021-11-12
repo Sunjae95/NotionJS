@@ -1,3 +1,4 @@
+import { push } from "../../utils/router.js";
 import { createElement } from "../../utils/util.js";
 
 export default function Header({ $target, title }) {
@@ -14,4 +15,8 @@ export default function Header({ $target, title }) {
   };
 
   this.render();
+
+  $header.addEventListener("click", (e) => {
+    push("/");
+  });
 }
