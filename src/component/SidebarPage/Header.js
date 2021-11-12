@@ -1,3 +1,4 @@
+import { push } from "../../utils/router.js";
 import { createElement } from "../../utils/util.js";
 
 export default function Header({ $target, title }) {
@@ -6,11 +7,14 @@ export default function Header({ $target, title }) {
   }
 
   const $header = createElement("div", "sidebar-header");
+  $header.addEventListener("click", (e) => {
+    push("/");
+  });
 
   $target.appendChild($header);
 
   this.render = () => {
-    $header.innerHTML = `${title}`;
+    $header.innerHTML = title;
   };
 
   this.render();

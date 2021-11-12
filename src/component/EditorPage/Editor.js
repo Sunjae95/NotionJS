@@ -1,6 +1,11 @@
 import { createElement } from "../../utils/util.js";
 
-export default function Editor({ $target, initialState, onEditing }) {
+export default function Editor({
+  $target,
+  initialState,
+  onEditing,
+  handleChangeTitle,
+}) {
   if (!new.target) {
     throw new Error("Frame new 연산자 누락!");
   }
@@ -8,7 +13,7 @@ export default function Editor({ $target, initialState, onEditing }) {
   const $editor = createElement("div", "editor-container");
 
   $editor.innerHTML = /*html*/ `
-    <input type="text" name="title"/>
+    <input type="text" name="title" placeholder="제목을 입력해주세요"/>
     <div class="horisontal-line"></div>
     <textarea name="content"/>
     `;
@@ -29,14 +34,18 @@ export default function Editor({ $target, initialState, onEditing }) {
 
   this.render();
 
-  $editor.querySelector("[name=title]").addEventListener("keyup", (e) => {
-    const nextState = { ...this.state, title: e.target.value };
+  $editor.addEventListener("keyup", (e) => {
+    const { target } = e;
+    const name = target.getAttribute("name");
 
-    onEditing(nextState);
-    this.setState(nextState);
-  });
-  $editor.querySelector("[name=content]").addEventListener("keyup", (e) => {
-    const nextState = { ...this.state, content: e.target.value };
+    if (this.state[name] === undefined) return;
+    if (name === "title") {
+      handleChangeTitle(target.value);
+    }
+    const nextState = {
+      ...this.state,
+      [name]: target.value,
+    };
 
     onEditing(nextState);
     this.setState(nextState);
