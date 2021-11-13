@@ -3,7 +3,7 @@
 ## 🚩배포주소
 [보러가기](https://notion-js.web.app/)
 ## 🎞회고록
-
+[리팩토링 회고](https://sunjae95.github.io/posts/Notion_Refactor/)
 ## 🎪데모
 ### 생성
 ![notion-js-create](https://user-images.githubusercontent.com/63578094/141608944-c15e3d03-eb56-4a14-aa15-274f34ca92d1.gif)
